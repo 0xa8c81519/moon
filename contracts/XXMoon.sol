@@ -701,7 +701,7 @@ interface IPancakeV2Router02 is IPancakeV2Router01 {
 }
 
 
-contract GoMoon is Context, IERC20, Ownable {
+contract XXMoon is Context, IERC20, Ownable {
     using SafeMath for uint256;
     using Address for address;
 
@@ -719,8 +719,8 @@ contract GoMoon is Context, IERC20, Ownable {
     uint256 private _rTotal = (MAX - (MAX % _tTotal));
     uint256 private _tFeeTotal;
 
-    string private _name = "gomoon";
-    string private _symbol = "GOMOON";
+    string private _name = "xxmoon";
+    string private _symbol = "XXMOON";
     uint8 private _decimals = 18;
     
     uint256 public _taxFee = 5;
