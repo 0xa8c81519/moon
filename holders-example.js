@@ -25,7 +25,7 @@ let post = (url, param) => {
 // 首先查询数据源中的第一条数据。
 // 初始化查询第一条记录，用到的参数。
 let queryStr = "{\n" +
-	"bsttransfers(first:1) {\n" +
+	"xxmoontransferlogs(first:1) {\n" +
 	"id\n" +
 	"sender\n" +
 	"recipient\n" +
@@ -60,7 +60,7 @@ function distinct(a, b) {
 // 远程调用接口，进行查询。查询第一条记录
 post(url, queryData).then(async res => {  // 查询到第一条记录后
 	let parsedData = JSON.parse(res);
-	let id = parsedData.data.bsttransfers[0].id;
+	let id = parsedData.data.xxmoonTransferLogs[0].id;
 	let enpochBlock = ethers.BigNumber.from(id.substring(0, id.indexOf('-'))).sub(1); // 第一条记录起始的区块高度
 	let sender = new Array();
 	let recipient = new Array();
@@ -71,7 +71,7 @@ post(url, queryData).then(async res => {  // 查询到第一条记录后
 		let endBlock = enpochBlock.add(10000);
 		// 查询条件参数，查询一万个块高内的数据
 		let qStr = "{\n" +
-			"bsttransfers(first:1000, where:{id_gt:\"" + enpochBlock.toHexString() + "\",id_lt:\"" + endBlock.toHexString() + "\"}) {\n" +
+			"xxmoontransferlogs(first:1000, where:{id_gt:\"" + enpochBlock.toHexString() + "\",id_lt:\"" + endBlock.toHexString() + "\"}) {\n" +
 			"id\n" +
 			"sender\n" +
 			"recipient\n" +
@@ -84,9 +84,9 @@ post(url, queryData).then(async res => {  // 查询到第一条记录后
 		// 远程调用查询接口
 		let res_1 = await post(url, qData);
 		let data = JSON.parse(res_1);
-		let length = data.data.bsttransfers.length;
+		let length = data.data.xxmoonTransferLogs.length;
 		console.log(length);
-		data.data.bsttransfers.forEach(e => {
+		data.data.xxmoontransferlogs.forEach(e => {
 			sender.push(e.sender);
 			recipient.push(e.recipient);
 		});
